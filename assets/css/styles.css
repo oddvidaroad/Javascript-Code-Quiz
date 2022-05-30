@@ -1,0 +1,46 @@
+:root {
+    --lavender:blueviolet;
+    --purple:purple;
+  }
+
+body{
+
+    font-family: sans-serif;
+}
+nav ul {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+nav li:first-child {
+    
+    margin-right: auto;
+}
+
+nav li a {
+    color:var(--lavender);
+    margin: 0;
+    text-decoration: none;
+}
+h1{
+    font-size: 150%rem;
+}
+
+.btn_choice{
+    background-color:var(--purple);
+
+}
+.btn_choice :hover {
+    /* placeholder */
+    background-color: orange;
+}
+
+.answer_message{
+    font-style: italic;
+}

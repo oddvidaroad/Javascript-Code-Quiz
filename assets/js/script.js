@@ -1,23 +1,61 @@
 let questionIndex = 0;
-
+let cardTitle = document.getElementById('card-title');
+let cardBody = document.getElementById('answers');
+let answerList = document.createElement('ol');
+let cardButton = document.getElementById('start');
+let secondsLeft = 60;
 function checkAnswer(userAnswer, questionId) {
     theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
     if (theAnswer.correctAnswer == userAnswer) {
         console.log("Correct!");
-        
-        if(questionIndex <= 4){
-            questionIndex += 1;
-        }else{
+        questionIndex += 1;
+        if (questionIndex < quizQuestions.length && secondsLeft > 0) {
+            console.log(questionIndex);
+            answerList.innerHTML = "";
+            setQuizQuestion(questionIndex);
+            
+        } else if(questionIndex == quizQuestions.length && secondsLeft >0 ) {
+            cardTitle.textContent = 'You have reached the end of the quiz'; 
+            answerList.innerHTML = "";
             console.log('you reached the end of the quiz!');
         }
+        else{
+
+            cardTitle.textContent = "Sorry. You ran out of time. Please try again.";
+        }
     } else {
-        // Add 5seconds to the timer
+        // Remove 5 seconds to the timer
+        secondsLeft = secondsLeft - 5;
         console.log("not it");
     };
 };
 
+function setQuizQuestion(questionIndex) {
+    console.log(questionIndex);
+    let quizQuestion = quizQuestions[questionIndex];
+    for (i = 0; i < quizQuestion.answers.length; i++) {
+        let quizQuestion = quizQuestions[questionIndex];
+        let answerListValue = document.createElement('li');
+        let answerListValueText = document.createElement('a');
+        cardTitle.textContent = quizQuestion.questionText;
+        cardButton.remove();
+        answerList.setAttribute('qId', quizQuestion.id);
+        answerListValueText.setAttribute('answerId', i);
+        answerListValueText.addEventListener('click', function (event) {
+            let questionId = answerList.getAttribute('qId');
+            let userAnswer = answerListValueText.getAttribute('answerId');
+            checkAnswer(userAnswer, questionId);
+            //console.log('I was clicked ' +answerListValueText.getAttribute('answerId'));
+        })
+        answerListValueText.textContent = quizQuestion.answers[i];
+        answerListValue.appendChild(answerListValueText);
+        answerList.appendChild(answerListValue);
+    }
+    cardBody.append(answerList);
+};
+
 function viewHighScores() {
-    
+    console.log(quizQuestions.length);
 };
 
 let quizQuestions = [{
@@ -69,52 +107,21 @@ let answerKey = [{
     }
 ];
 
-function getQuizQuestion() {
-
-
-};
 
 //Quiz Timer
 const startQuizEl = document.getElementById("start");
 
 function startQuiz() {
-    let cardTitle = document.getElementById('card-title');
-    let cardBody = document.getElementById('answers');
-    let answerList = document.createElement('ol');
-    let cardButton = document.getElementById('start');
-    let quizQuestion = quizQuestions[questionIndex];
-    for (i = 0; i < quizQuestion.answers.length; i++) {
-        let quizQuestion = quizQuestions[questionIndex];
-        let answerListValue = document.createElement('li');
-        let answerListValueText = document.createElement('a');
-        cardTitle.textContent = quizQuestion.questionText;
-        cardButton.remove();
-        answerList.setAttribute('qId', quizQuestion.id);
-        answerListValueText.setAttribute('answerId', i);
-        answerListValueText.addEventListener('click', function (event) {
-            let questionId = answerList.getAttribute('qId');
-            let userAnswer = answerListValueText.getAttribute('answerId');
-            checkAnswer(userAnswer, questionId);
-            //console.log('I was clicked ' +answerListValueText.getAttribute('answerId'));
-        })
-        answerListValueText.textContent = quizQuestion.answers[i];
-        answerListValue.appendChild(answerListValueText);
-        answerList.appendChild(answerListValue);
-    }
-    cardBody.append(answerList);
-
+    setQuizQuestion(questionIndex);
     console.log("Top Scores!");
-
-
     // number of seconds to complete the quiz
     let timerEl = document.getElementById('timeLeft');
-    let secondsLeft = 20;
     let timeLeft = setInterval(function () {
             secondsLeft--;
             timerEl.textContent = secondsLeft;
             if (secondsLeft === 0) {
                 console.log("Time's Up!");
-                timerEl.textContent = secondsLeft;
+                checkAnswer();
                 clearInterval(timeLeft);
             }
         },

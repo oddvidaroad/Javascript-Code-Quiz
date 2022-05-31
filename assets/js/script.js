@@ -1,9 +1,32 @@
 let questionIndex = 0;
+let secondsLeft = 10;
 let cardTitle = document.getElementById('card-title');
 let cardBody = document.getElementById('answers');
 let answerList = document.createElement('ol');
 let cardButton = document.getElementById('start');
-let secondsLeft = 60;
+let timerValue = document.getElementById('timeLeft');
+let startQuizButton = document.getElementById("start");
+
+// add Event Listener to the Start Button
+startQuizButton.addEventListener('click', function () {
+    setQuizQuestion(questionIndex);
+    intervalValue = setInterval(function () {
+            secondsLeft--;
+            timerValue.textContent = secondsLeft;
+            if (secondsLeft === 0 || secondsLeft <0) {
+                timesUp(); 
+            }
+        },
+        1000);
+});
+
+function timesUp() {
+    clearInterval(intervalValue);
+    timerValue.textContent = 0;
+    cardTitle.textContent = 'Time is up. Please refresh the page and try again.';
+    cardBody.remove();
+};
+
 function checkAnswer(userAnswer, questionId) {
     theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
     if (theAnswer.correctAnswer == userAnswer) {
@@ -13,20 +36,25 @@ function checkAnswer(userAnswer, questionId) {
             console.log(questionIndex);
             answerList.innerHTML = "";
             setQuizQuestion(questionIndex);
-            
-        } else if(questionIndex == quizQuestions.length && secondsLeft >0 ) {
-            cardTitle.textContent = 'You have reached the end of the quiz'; 
-            answerList.innerHTML = "";
-            console.log('you reached the end of the quiz!');
-        }
-        else{
 
-            cardTitle.textContent = "Sorry. You ran out of time. Please try again.";
+        } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
+            quizComplete === true;
+            cardTitle.textContent = 'You have reached the end of the quiz';
+            answerList.innerHTML = "";
+            clearInterval(intervalValue);
+            console.log('you reached the end of the quiz!');
+        } else {
+
+            timesUp();
         }
     } else {
-        // Remove 5 seconds to the timer
-        secondsLeft = secondsLeft - 5;
-        console.log("not it");
+        // Remove 5 seconds to the timer for wrong answers.
+        if (secondsLeft >= 5) {
+            secondsLeft = secondsLeft - 5;
+            console.log("not it");
+        } else {
+            secondsLeft = 0;
+        }
     };
 };
 
@@ -106,28 +134,3 @@ let answerKey = [{
         "correctAnswer": 1
     }
 ];
-
-
-//Quiz Timer
-const startQuizEl = document.getElementById("start");
-
-function startQuiz() {
-    setQuizQuestion(questionIndex);
-    console.log("Top Scores!");
-    // number of seconds to complete the quiz
-    let timerEl = document.getElementById('timeLeft');
-    let timeLeft = setInterval(function () {
-            secondsLeft--;
-            timerEl.textContent = secondsLeft;
-            if (secondsLeft === 0) {
-                console.log("Time's Up!");
-                checkAnswer();
-                clearInterval(timeLeft);
-            }
-        },
-        // every 1s run the function
-        1000);
-};
-
-// add Event Listener to the Start Button
-startQuizEl.addEventListener('click', startQuiz);

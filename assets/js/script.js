@@ -2,58 +2,61 @@ let questionIndex = 0;
 let secondsLeft = 10;
 let cardTitle = document.getElementById('card-title');
 let cardBody = document.getElementById('answers');
+let cardFooter = document.getElementById('footer');
+let answerFeedback = document.createElement('p');
 let answerList = document.createElement('ol');
 let cardButton = document.getElementById('start');
 let timerValue = document.getElementById('timeLeft');
 let startQuizButton = document.getElementById("start");
-
 // add Event Listener to the Start Button
 startQuizButton.addEventListener('click', function () {
     setQuizQuestion(questionIndex);
+    cardFooter.appendChild(answerFeedback);
     intervalValue = setInterval(function () {
             secondsLeft--;
-            timerValue.textContent = secondsLeft;
-            if (secondsLeft === 0 || secondsLeft <0) {
-                timesUp(); 
+            timerValue.textContent = secondsLeft + "s";
+            if (secondsLeft === 0 || secondsLeft < 0) {
+                timesUp();
             }
         },
         1000);
 });
 
 function timesUp() {
+
+    // Display the Final Score and Allow User to Enter Initials with a Submit Button.
     clearInterval(intervalValue);
     timerValue.textContent = 0;
-    cardTitle.textContent = 'Time is up. Please refresh the page and try again.';
-    cardBody.remove();
+    cardTitle.textContent = 'Display the Final Score and Allow User to Enter Initials with a Submit Button.';
 };
+
+function answerFeedbackAlert() {
+
+    setTimeout(function () {
+        answerFeedback.textContent = "";
+        if (questionIndex < quizQuestions.length && secondsLeft > 0) {
+            answerList.innerHTML = "";
+            setQuizQuestion(questionIndex);
+        } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
+            timesUp();
+        }
+    }, 5000);
+}
 
 function checkAnswer(userAnswer, questionId) {
     theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
     if (theAnswer.correctAnswer == userAnswer) {
-        console.log("Correct!");
-        questionIndex += 1;
-        if (questionIndex < quizQuestions.length && secondsLeft > 0) {
-            console.log(questionIndex);
-            answerList.innerHTML = "";
-            setQuizQuestion(questionIndex);
-
-        } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
-            quizComplete === true;
-            cardTitle.textContent = 'You have reached the end of the quiz';
-            answerList.innerHTML = "";
-            clearInterval(intervalValue);
-            console.log('you reached the end of the quiz!');
-        } else {
-
-            timesUp();
-        }
+        answerFeedback.textContent = "Correct!";
+        answerFeedbackAlert();
     } else {
         // Remove 5 seconds to the timer for wrong answers.
         if (secondsLeft >= 5) {
             secondsLeft = secondsLeft - 5;
             console.log("not it");
+            answerFeedback.textContent = "Incorrect!";
+            answerFeedbackAlert();
         } else {
-            secondsLeft = 0;
+            timesUp();
         }
     };
 };

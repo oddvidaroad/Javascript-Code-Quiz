@@ -1,29 +1,25 @@
-function viewHighScores() {
+let questionIndex = 0;
 
-
-    let cardBody = document.getElementById('answers');
-    let answerList = document.createElement('ol');
-    
-    //console.log(answerList);
-    let q = 0;
-    let quizQuestion = quizQuestions[q];
-    for (i = 0; i < quizQuestion.answers.length; i++) {
-        let quizQuestion = quizQuestions[q];
-        let answerListValue = document.createElement('li');
-        let answerListValueText = document.createElement('a');
-        answerList.setAttribute('qId',quizQuestion.id);
-        answerListValueText.setAttribute('answerId',i);
-        answerListValueText.addEventListener('click',function(event){
-            console.log('I was clicked ' +answerListValueText.getAttribute('answerId'));
-        })
-        answerListValueText.textContent = quizQuestion.answers[i];
-        answerListValue.appendChild(answerListValueText);
-        answerList.appendChild(answerListValue);
-    }
-    cardBody.append(answerList);
-
-console.log("Top Scores!");
+function checkAnswer(userAnswer, questionId) {
+    theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
+    if (theAnswer.correctAnswer == userAnswer) {
+        console.log("Correct!");
+        
+        if(questionIndex <= 4){
+            questionIndex += 1;
+        }else{
+            console.log('you reached the end of the quiz!');
+        }
+    } else {
+        // Add 5seconds to the timer
+        console.log("not it");
+    };
 };
+
+function viewHighScores() {
+    
+};
+
 let quizQuestions = [{
         "id": 1,
         "questionText": "Commonly Used Data Types DO NOT include:",
@@ -82,6 +78,34 @@ function getQuizQuestion() {
 const startQuizEl = document.getElementById("start");
 
 function startQuiz() {
+    let cardTitle = document.getElementById('card-title');
+    let cardBody = document.getElementById('answers');
+    let answerList = document.createElement('ol');
+    let cardButton = document.getElementById('start');
+    let quizQuestion = quizQuestions[questionIndex];
+    for (i = 0; i < quizQuestion.answers.length; i++) {
+        let quizQuestion = quizQuestions[questionIndex];
+        let answerListValue = document.createElement('li');
+        let answerListValueText = document.createElement('a');
+        cardTitle.textContent = quizQuestion.questionText;
+        cardButton.remove();
+        answerList.setAttribute('qId', quizQuestion.id);
+        answerListValueText.setAttribute('answerId', i);
+        answerListValueText.addEventListener('click', function (event) {
+            let questionId = answerList.getAttribute('qId');
+            let userAnswer = answerListValueText.getAttribute('answerId');
+            checkAnswer(userAnswer, questionId);
+            //console.log('I was clicked ' +answerListValueText.getAttribute('answerId'));
+        })
+        answerListValueText.textContent = quizQuestion.answers[i];
+        answerListValue.appendChild(answerListValueText);
+        answerList.appendChild(answerListValue);
+    }
+    cardBody.append(answerList);
+
+    console.log("Top Scores!");
+
+
     // number of seconds to complete the quiz
     let timerEl = document.getElementById('timeLeft');
     let secondsLeft = 20;

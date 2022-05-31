@@ -1,5 +1,5 @@
 let questionIndex = 0;
-let secondsLeft = 10;
+let secondsLeft = 30;
 let cardTitle = document.getElementById('card-title');
 let cardBody = document.getElementById('answers');
 let cardFooter = document.getElementById('footer');
@@ -22,45 +22,6 @@ startQuizButton.addEventListener('click', function () {
         1000);
 });
 
-function timesUp() {
-
-    // Display the Final Score and Allow User to Enter Initials with a Submit Button.
-    clearInterval(intervalValue);
-    timerValue.textContent = 0;
-    cardTitle.textContent = 'Display the Final Score and Allow User to Enter Initials with a Submit Button.';
-};
-
-function answerFeedbackAlert() {
-
-    setTimeout(function () {
-        answerFeedback.textContent = "";
-        if (questionIndex < quizQuestions.length && secondsLeft > 0) {
-            answerList.innerHTML = "";
-            setQuizQuestion(questionIndex);
-        } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
-            timesUp();
-        }
-    }, 5000);
-}
-
-function checkAnswer(userAnswer, questionId) {
-    theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
-    if (theAnswer.correctAnswer == userAnswer) {
-        answerFeedback.textContent = "Correct!";
-        answerFeedbackAlert();
-    } else {
-        // Remove 5 seconds to the timer for wrong answers.
-        if (secondsLeft >= 5) {
-            secondsLeft = secondsLeft - 5;
-            console.log("not it");
-            answerFeedback.textContent = "Incorrect!";
-            answerFeedbackAlert();
-        } else {
-            timesUp();
-        }
-    };
-};
-
 function setQuizQuestion(questionIndex) {
     console.log(questionIndex);
     let quizQuestion = quizQuestions[questionIndex];
@@ -76,7 +37,6 @@ function setQuizQuestion(questionIndex) {
             let questionId = answerList.getAttribute('qId');
             let userAnswer = answerListValueText.getAttribute('answerId');
             checkAnswer(userAnswer, questionId);
-            //console.log('I was clicked ' +answerListValueText.getAttribute('answerId'));
         })
         answerListValueText.textContent = quizQuestion.answers[i];
         answerListValue.appendChild(answerListValueText);
@@ -84,6 +44,47 @@ function setQuizQuestion(questionIndex) {
     }
     cardBody.append(answerList);
 };
+
+function timesUp() {
+
+    // Display the Final Score and Allow User to Enter Initials with a Submit Button.
+    clearInterval(intervalValue);
+    timerValue.textContent = 0;
+    cardTitle.textContent = 'Display the Final Score and Allow User to Enter Initials with a Submit Button.';
+    cardBody.remove(answerList);
+};
+
+function answerFeedbackAlert() {
+    
+    setTimeout(function () {
+        answerFeedback.textContent = "";
+    }, 1000);
+};
+
+function checkAnswer(userAnswer, questionId) {
+    questionIndex +=1; 
+    theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
+    if (theAnswer.correctAnswer == userAnswer) {
+        answerFeedback.textContent = "Correct!";
+        answerFeedbackAlert();
+    } else {
+        // Remove 5 seconds to the timer for wrong answers.
+        if (secondsLeft >= 5) {
+            secondsLeft = secondsLeft - 5;
+            answerFeedback.textContent = "Incorrect!";
+            answerFeedbackAlert();
+        } else {
+            timesUp();
+        }
+    };
+    if (questionIndex < quizQuestions.length && secondsLeft > 0) {
+        answerList.innerHTML = "";
+        setQuizQuestion(questionIndex);
+    } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
+        timesUp();
+    }
+};
+
 
 function viewHighScores() {
     console.log(quizQuestions.length);

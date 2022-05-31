@@ -1,12 +1,16 @@
+/* some fancy root elements to set color pallete */
 :root {
     --lavender:blueviolet;
     --purple:purple;
   }
 
+
+/* Set the :default font family as sans-serif */
 body{
 
     font-family: sans-serif;
 }
+/* added flex box to make sure the nav items are aligned correctly; margin / padding sets them to the end of the page */
 nav ul {
 
     display: flex;
@@ -32,15 +36,62 @@ h1{
     font-size: 150%rem;
 }
 
-.btn_choice{
-    background-color:var(--purple);
-
-}
-.btn_choice :hover {
-    /* placeholder */
-    background-color: orange;
+header {
+    text-align: center;
+    padding: 20px;
+    padding-top: 0px;
 }
 
-.answer_message{
+.card {
+    border-radius: 6px;
+    border-width: 1px;
+    box-shadow: var(--lavender) 0px 2px 8px 0px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 3rem 4rem;
+  }
+  
+  
+  .card-body {
+    min-height: 100px;
+  }
+  
+  .card-footer {
+    text-align: center;
+  }
+  
+  .card-footer::before {
+    content: " ";
+    display: block;
+    width: 100%;
+    background: #e7e9eb;
+    height: 2px;
+  }
+  
+  .card-footer::after {
+    content: " ";
+    display: block;
+
+  }
+  
+  .btn {
+    border: none;
+    background-color: var(--purple);
+    border-radius: 25px;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 22px;
+    margin: 16px;
+    padding: 10px 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  button[disabled] {
+    cursor: default;
+    background: #c0c7cf;
+  }
+  
+.answer-message{
     font-style: italic;
 }

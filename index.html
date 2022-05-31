@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Week 4 Chalenge: Code Quiz</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <!-- click action of the link is to fire the viewHighScores function -->
+                    <a href="#" onclick="viewHighScores()">View Highscores
+                    </a>
+                </li>
+                <li id="timer">
+                    Time Left(s): <span id="timeLeft">20</span>s
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="wrapper">
+        <header>
+            <h1>Coding Quiz Challenge</h1>
+        </header>
+        <div class="card" >
+            <div class="card-header">
+                <h3>Try taking this quiz to assess your knowledge. See if you can finish in the time allotted. Keep in mind that each wrong asnwer deducts time.</h3>
+            </div>
+            <div class="card-body" id="answers">
+            </div>
+            <div class="card-footer">
+                <button id="start" class="btn">Start</button>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+
+</html>

@@ -93,7 +93,7 @@ function timesUp() {
         // call the view high scores function.
         viewHighScores();
     });
-    // set the values for the highscore and card text.
+    // set the values for the highscore and card text and clear any remaining bits.
     cardBody.append(userScore);
     cardBody.append(userInitialsLabel);
     cardBody.append(userInitials);
@@ -116,7 +116,7 @@ function answerFeedbackAlert() {
     }, 1000);
     // check to see if we are at the end of the questions and if there is still time left to answer questions.
     if (questionIndex < quizQuestions.length && secondsLeft > 0) {
-        console.log("here");
+        // clear the previous answer list.
         answerList.textContent = '';
         // set the next quiz question.
         setQuizQuestion(questionIndex);
@@ -133,7 +133,7 @@ function answerFeedbackAlert() {
 function checkAnswer(userAnswer, questionId) {
     // advance the question
     questionIndex += 1;
-    // tricky bit > we will get the user answe and check the the answer key for the correct value by finding the question where the question id matches the question answered by the user.
+    // tricky bit > we will get the user answer and check the the answer key for the correct value by finding the question where the question id matches the question answered by the user using the find method.
     theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
     // if the answer matches then set the answer feedback as Correct! 
     if (theAnswer.correctAnswer == userAnswer) {
@@ -212,7 +212,7 @@ function viewHighScores(event) {
 
 
 };
-
+// quizQuestions, id, and question text
 let quizQuestions = [{
         "id": 1,
         "questionText": "Commonly Used Data Types DO NOT include:",
@@ -239,7 +239,7 @@ let quizQuestions = [{
         "answers": ["reset()", "clearInterval()", "function()", "resetTimer()"]
     }
 ];
-
+// answer key.
 let answerKey = [{
         "id": 1,
         "correctAnswer": 2

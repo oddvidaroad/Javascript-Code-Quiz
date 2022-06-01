@@ -173,7 +173,7 @@ function viewHighScores(event) {
     // clear the card body.
     cardBody.innerHTML = '';
     // change the title to Highscores
-    cardTitle.textContent = 'Highscores';
+    cardTitle.textContent = 'Highscore';
     // create a container for the highscores data <could have used the existing answersList ol but wanted to be clear this was highscores>
     let highScoreContainer = document.createElement('ol');
     let highScoreList = document.createElement('li');

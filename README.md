@@ -39,3 +39,4 @@ The following is a video of the application functionality.
 
 ## Link to Application
 
+[Click here to try the Code Quiz](https://oddvidaroad.github.io/Javascript-Code-Quiz/)

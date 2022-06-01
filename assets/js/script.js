@@ -80,7 +80,7 @@ function timesUp() {
     userSubmitBtn.setAttribute('class', 'btn');
     userSubmitBtn.textContent = "Submit";
     userSubmitBtn.addEventListener('click', function (event) {
-        // prevent page refresh
+        // prevent page refresh 
         event.preventDefault();
         // get the value of the user Initials >
         userInitials = userInitials.value;

@@ -13,12 +13,18 @@ let cardButton = document.getElementById('start');
 let timer = document.getElementById('timer');
 let timerValue = document.getElementById('timeLeft');
 let startQuizButton = document.getElementById("start");
+answerFeedback.setAttribute('class','answer-feedback');
 // add Event Listener to the Start Button in order to begin the game.
 startQuizButton.addEventListener('click', function () {
+    // remove the highscore link
     viewHighscoreLink.remove();
+    // call the question setup function
     setQuizQuestion(questionIndex);
+    // add the empty feedback message container
     cardFooter.appendChild(answerFeedback);
+    // start the clock with the value of secondsLeft (30s)
     intervalValue = setInterval(function () {
+            // decrement the value by 1 every 1 second and set the timer value to present the time left for the quiz every 1 sec.
             secondsLeft--;
             timerValue.textContent = secondsLeft + "s";
             if (secondsLeft === 0 || secondsLeft < 0) {
@@ -37,6 +43,7 @@ function setQuizQuestion(questionIndex) {
         let answerListValue = document.createElement('li');
         let answerListValueText = document.createElement('a');
         cardTitle.textContent = quizQuestion.questionText;
+        answerListValue.setAttribute('class','answers');
         // Dynamically set the question id to the card title and the  and the quiz answer id to each answer. with custom attributes
         cardTitle.setAttribute('qId', quizQuestion.id);
         answerListValueText.setAttribute('answerId', i);
@@ -99,13 +106,12 @@ function timesUp() {
     cardBody.append(userInitials);
     cardBody.append(userSubmitBtn);
     answerList.textContent = '';
-    // reset timer in case there is time left on the clock.
+    // reset timer in case there is time left on the clock then set the card title and make sure the timer value is set to 0;
     clearInterval(intervalValue);
     timerValue.textContent = 0;
-    cardTitle.textContent = 'All Done';
+    cardTitle.textContent = 'All Done!';
 
 };
-
 // answer feedback function
 function answerFeedbackAlert() {
     // setTimeout sets a timer that runs once and delays the action of the function for the given interval
@@ -158,10 +164,10 @@ function checkAnswer(userAnswer, questionId) {
 
 };
 // add an event listener to the viewHighscores Link; using an anonymous function will prevent the function from firing on loading of the page.
- viewHighscoreLink.addEventListener('click',function(){
+viewHighscoreLink.addEventListener('click', function () {
     // call view Highscores    
     viewHighScores();
- });
+});
 // View Highscores when the highscores btn is clicked.
 function viewHighScores(event) {
     // clear the card body.
@@ -171,6 +177,8 @@ function viewHighScores(event) {
     // create a container for the highscores data <could have used the existing answersList ol but wanted to be clear this was highscores>
     let highScoreContainer = document.createElement('ol');
     let highScoreList = document.createElement('li');
+    highScoreList.setAttribute('class','highscore-list');
+    highScoreContainer.setAttribute('class','highscore');
     // create buttons
     let goBackButton = document.createElement('button');
     let clearHighscores = document.createElement('button');
@@ -201,8 +209,8 @@ function viewHighScores(event) {
         cardBody.append(highScoreContainer);
         cardBody.append(clearHighscores);
     }
-// Add the buttons to the page and remove excess elements.
-// TO DO > create a function to clear page contents.
+    // Add the buttons to the page and remove excess elements.
+    // TO DO > create a function to clear page contents.
     cardBody.append(goBackButton);
     cardButton.remove();
     answerList.remove();

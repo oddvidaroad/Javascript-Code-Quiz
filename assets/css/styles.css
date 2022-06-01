@@ -2,6 +2,9 @@
 :root {
     --lavender:blueviolet;
     --purple:purple;
+    --white:white;
+    --darkgray:darkgray;
+    --grey: grey;
   }
 
 
@@ -10,6 +13,7 @@ body{
 
     font-family: sans-serif;
 }
+
 /* added flex box to make sure the nav items are aligned correctly; margin / padding sets them to the end of the page */
 nav ul {
 
@@ -32,6 +36,41 @@ nav li a {
     margin: 0;
     text-decoration: none;
 }
+
+/* add some feedback for the link hover */
+
+nav li a:hover{
+
+  font-weight: bold;
+
+}
+
+/* style the timer */
+
+#timer{
+
+    font-weight: bold;
+
+}
+
+/* style answers */
+.answers a{
+
+  color:var(--white);
+  border-radius: 3px;
+  font-weight: bold;
+  background-color: var(--lavender);
+  cursor: pointer;
+}
+
+/* on hover, the answers will bold to provide user feedback */
+
+.answers a:hover{
+  border: 3px solid var(--lavender);
+  opacity: 75%;
+  font-weight: bolder;
+}
+
 h1{
     font-size: 150%rem;
 }
@@ -42,16 +81,18 @@ header {
     padding-top: 0px;
 }
 
+/* add border and shadow to card to give it depth */
+
 .card {
     border-radius: 6px;
     border-width: 1px;
-    box-shadow: var(--lavender) 0px 2px 8px 0px;
+    box-shadow: var(--darkgray) 0px 2px 8px 0px;
     margin: 0 auto;
     max-width: 800px;
     padding: 3rem 4rem;
   }
   
-  
+
   .card-body {
     min-height: 100px;
   }
@@ -59,24 +100,24 @@ header {
   .card-footer {
     text-align: center;
   }
-  
-  .card-footer::before {
-    content: " ";
-    display: block;
-    width: 100%;
-    background: #e7e9eb;
-    height: 2px;
-  }
-  
-  .card-footer::after {
-    content: " ";
-    display: block;
 
+/* stlye the highscore */
+  .highscore {
+
+    background-color:var(--darkgray);
+    opacity: 70%;
   }
+  .highscore-list {
+    color: var(--lavender);
+    font-weight: bolder;
+  }
+  
+  /* style the button */
   
   .btn {
     border: none;
-    background-color: var(--purple);
+    background-color: var(--lavender);
+    color:var(--white);
     border-radius: 25px;
     display: inline-block;
     font-size: 20px;
@@ -86,7 +127,17 @@ header {
     text-align: center;
     cursor: pointer;
   }
-  
-.answer-message{
+   /* button hover opacity so that the button changes color on hover */
+  .btn:hover{
+
+    opacity: 95%;
+    font-weight: bold;
+
+  }
+  /* style the answer feedback message */
+.answer-feedback{
+    color: var(--grey);
+    text-align: left;
+    font-size: larger;
     font-style: italic;
 }

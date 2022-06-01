@@ -1,45 +1,45 @@
 /* some fancy root elements to set color pallete */
 :root {
-    --lavender:blueviolet;
-    --purple:purple;
-    --white:white;
-    --darkgray:darkgray;
-    --grey: grey;
-  }
+  --lavender: blueviolet;
+  --purple: purple;
+  --white: white;
+  --darkgray: darkgray;
+  --grey: grey;
+}
 
 
 /* Set the :default font family as sans-serif */
-body{
+body {
 
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 /* added flex box to make sure the nav items are aligned correctly; margin / padding sets them to the end of the page */
 nav ul {
 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
 }
 
 nav li:first-child {
-    
-    margin-right: auto;
+
+  margin-right: auto;
 }
 
 nav li a {
-    color:var(--lavender);
-    margin: 0;
-    text-decoration: none;
+  color: var(--lavender);
+  margin: 0;
+  text-decoration: none;
 }
 
 /* add some feedback for the link hover */
 
-nav li a:hover{
+nav li a:hover {
 
   font-weight: bold;
 
@@ -47,16 +47,16 @@ nav li a:hover{
 
 /* style the timer */
 
-#timer{
+#timer {
 
-    font-weight: bold;
+  font-weight: bold;
 
 }
 
 /* style answers */
-.answers a{
+.answers a {
 
-  color:var(--white);
+  color: var(--white);
   border-radius: 3px;
   font-weight: bold;
   background-color: var(--lavender);
@@ -65,79 +65,82 @@ nav li a:hover{
 
 /* on hover, the answers will bold to provide user feedback */
 
-.answers a:hover{
+.answers a:hover {
   border: 3px solid var(--lavender);
   opacity: 75%;
   font-weight: bolder;
 }
 
-h1{
-    font-size: 150%rem;
+h1 {
+  font-size: 150%rem;
 }
 
 header {
-    text-align: center;
-    padding: 20px;
-    padding-top: 0px;
+  text-align: center;
+  padding: 20px;
+  padding-top: 0px;
 }
 
 /* add border and shadow to card to give it depth */
 
 .card {
-    border-radius: 6px;
-    border-width: 1px;
-    box-shadow: var(--darkgray) 0px 2px 8px 0px;
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 3rem 4rem;
-  }
-  
+  border-radius: 6px;
+  border-width: 1px;
+  box-shadow: var(--darkgray) 0px 2px 8px 0px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 3rem 4rem;
+}
 
-  .card-body {
-    min-height: 100px;
-  }
-  
-  .card-footer {
-    text-align: center;
-  }
+
+.card-body {
+  min-height: 100px;
+}
+
+.card-footer {
+  text-align: center;
+}
 
 /* stlye the highscore */
-  .highscore {
+.highscore {
 
-    background-color:var(--darkgray);
-    opacity: 70%;
-  }
-  .highscore-list {
-    color: var(--lavender);
-    font-weight: bolder;
-  }
-  
-  /* style the button */
-  
-  .btn {
-    border: none;
-    background-color: var(--lavender);
-    color:var(--white);
-    border-radius: 25px;
-    display: inline-block;
-    font-size: 20px;
-    line-height: 22px;
-    margin: 16px;
-    padding: 10px 30px;
-    text-align: center;
-    cursor: pointer;
-  }
-   /* button hover opacity so that the button changes color on hover */
-  .btn:hover{
+  background-color: var(--darkgray);
+  opacity: 70%;
+}
 
-    opacity: 95%;
-    font-weight: bold;
+.highscore-list {
+  color: var(--lavender);
+  font-weight: bolder;
+}
 
-  }
-  /* style the answer feedback message */
-.answer-feedback{
-    color: var(--grey);
-    text-align: left;
-    font-size: larger;
-    font-style: italic;
+/* style the button */
+
+.btn {
+  border: none;
+  background-color: var(--lavender);
+  color: var(--white);
+  border-radius: 25px;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 22px;
+  margin: 16px;
+  padding: 10px 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* button hover opacity so that the button changes color on hover */
+.btn:hover {
+
+  opacity: 95%;
+  font-weight: bold;
+
+}
+
+/* style the answer feedback message */
+.answer-feedback {
+  color: var(--grey);
+  text-align: left;
+  font-size: larger;
+  font-style: italic;
 }

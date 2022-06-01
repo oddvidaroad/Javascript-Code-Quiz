@@ -1,15 +1,20 @@
 let questionIndex = 0;
 let secondsLeft = 30;
+let score = 0;
+let viewHighscoreLink = document.getElementById('view-highscores');
+let quizTitle = document.getElementById('quiz-title');
 let cardTitle = document.getElementById('card-title');
-let cardBody = document.getElementById('answers');
+let cardBody = document.getElementById('body');
 let cardFooter = document.getElementById('footer');
 let answerFeedback = document.createElement('p');
 let answerList = document.createElement('ol');
 let cardButton = document.getElementById('start');
+let timer = document.getElementById('timer');
 let timerValue = document.getElementById('timeLeft');
 let startQuizButton = document.getElementById("start");
 // add Event Listener to the Start Button
 startQuizButton.addEventListener('click', function () {
+    viewHighscoreLink.remove();
     setQuizQuestion(questionIndex);
     cardFooter.appendChild(answerFeedback);
     intervalValue = setInterval(function () {
@@ -23,7 +28,6 @@ startQuizButton.addEventListener('click', function () {
 });
 
 function setQuizQuestion(questionIndex) {
-    console.log(questionIndex);
     let quizQuestion = quizQuestions[questionIndex];
     for (i = 0; i < quizQuestion.answers.length; i++) {
         let quizQuestion = quizQuestions[questionIndex];
@@ -46,19 +50,48 @@ function setQuizQuestion(questionIndex) {
 };
 
 function timesUp() {
-
+    
     // Display the Final Score and Allow User to Enter Initials with a Submit Button.
+    let userInitialsLabel = document.createElement('label');
+    userInitialsLabel.textContent = "Enter your initials ";
+    let userScore = document.createElement('p');
+    userScore.textContent = "Your Final Score is "+score+"."
+    let userInitials = document.createElement('input');
+    userInitials.setAttribute('type','text');
+    let userSubmitBtn = document.createElement('button');
+    userSubmitBtn.setAttribute('class','btn');
+    userSubmitBtn.textContent = "Submit";
+    userSubmitBtn.addEventListener('click',function(event){
+        event.preventDefault();
+        userInitials = userInitials.value;
+        if(userInitials === null || userInitials === ""){
+            userInitials = "NA";
+        }
+        let highScores = {
+            
+            user_Intials: userInitials,
+            user_Score:score
+            
+        };
+        localStorage.setItem("highScores",JSON.stringify(highScores));
+        viewHighScores();
+        });
+    cardBody.append(userScore);
+    cardBody.append(userInitialsLabel);
+    cardBody.append(userInitials);
+    cardBody.append(userSubmitBtn);
+    answerList.textContent = '';
     clearInterval(intervalValue);
     timerValue.textContent = 0;
-    cardTitle.textContent = 'Display the Final Score and Allow User to Enter Initials with a Submit Button.';
-    cardBody.remove(answerList);
+    cardTitle.textContent = 'All Done';
+    
 };
 
 function answerFeedbackAlert() {
     
     setTimeout(function () {
         answerFeedback.textContent = "";
-    }, 1000);
+    }, 2000);
 };
 
 function checkAnswer(userAnswer, questionId) {
@@ -66,6 +99,7 @@ function checkAnswer(userAnswer, questionId) {
     theAnswer = answerKey.find(theQuestion => theQuestion.id == questionId);
     if (theAnswer.correctAnswer == userAnswer) {
         answerFeedback.textContent = "Correct!";
+        score = score+4;
         answerFeedbackAlert();
     } else {
         // Remove 5 seconds to the timer for wrong answers.
@@ -81,13 +115,46 @@ function checkAnswer(userAnswer, questionId) {
         answerList.innerHTML = "";
         setQuizQuestion(questionIndex);
     } else if (questionIndex == quizQuestions.length && secondsLeft > 0) {
+        score = Math.round((secondsLeft/30)*5,0)+score;
         timesUp();
     }
 };
 
-
 function viewHighScores() {
-    console.log(quizQuestions.length);
+    cardBody.innerHTML = '';
+    cardTitle.textContent = 'Highscores';
+    let highScoreContainer = document.createElement('ol');
+    let highScoreList = document.createElement('li');
+    let goBackButton = document.createElement('button');
+    let clearHighscores = document.createElement('button');
+    goBackButton.textContent = 'Go Back';
+    clearHighscores.textContent = 'Clear Highscores';
+    goBackButton.setAttribute('class','btn');
+    clearHighscores.setAttribute('class','btn');
+    highScoreContainer.append(highScoreList);
+    goBackButton.addEventListener('click',function(){
+        window.location.reload();
+    });
+    clearHighscores.addEventListener('click',function(){
+        localStorage.clear();
+        clearHighscores.remove();
+        highScoreList.remove();
+    });
+    let localHighscores = JSON.parse(localStorage.getItem('highScores'));
+    if(localHighscores !== null && localHighscores !== ""){
+        highScoreList.textContent = localHighscores.user_Intials +"-"+localHighscores.user_Score;
+        cardBody.append(highScoreContainer);
+        cardBody.append(clearHighscores);
+    }
+
+    cardBody.append(goBackButton);    
+    cardButton.remove();
+    answerList.remove();
+    timer.remove();
+    viewHighscoreLink.remove();
+    quizTitle.remove();
+
+
 };
 
 let quizQuestions = [{

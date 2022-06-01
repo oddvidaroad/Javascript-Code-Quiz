@@ -15,24 +15,24 @@
             <ul>
                 <li>
                     <!-- click action of the link is to fire the viewHighScores function -->
-                    <a href="#" onclick="viewHighScores()">View Highscores
+                    <a href="#" onclick="viewHighScores()" id="view-highscores">View Highscores
                     </a>
                 </li>
                 <li id="timer">
-                    Time Left: <span id="timeLeft">60s</span>
+                    Time Left: <span id="timeLeft">30s</span>
                 </li>
             </ul>
         </nav>
     </header>
     <div class="wrapper">
         <header>
-            <h1>Coding Quiz Challenge</h1>
+            <h1 id="quiz-title">Coding Quiz Challenge</h1>
         </header>
         <div class="card" >
             <div class="card-header">
                 <h3 id="card-title">Try taking this quiz to assess your knowledge. See if you can finish in the time allotted. Keep in mind that each wrong asnwer deducts time.</h3>
             </div>
-            <div class="card-body" id="answers">
+            <div class="card-body" id="body">
             </div>
             <div class="card-footer" id="footer">
                 <button id="start" class="btn">Start</button>

@@ -87,11 +87,6 @@ header {
     cursor: pointer;
   }
   
-  button[disabled] {
-    cursor: default;
-    background: #c0c7cf;
-  }
-  
 .answer-message{
     font-style: italic;
 }
